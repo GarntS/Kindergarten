@@ -51,7 +51,7 @@ var train = function(documents) {
 //Train the classifier with the contents of the JSON file at <filename>
 var train_from_JSON = function(filename) {
 	//Kill if file doesn't exist
-	if(!fs.accessSync(filename, 'r')) {
+	if(!fs.accessSync(filename)) {
 		log('Can\'t access file: '+ filename);
 		return;
 	}
