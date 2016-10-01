@@ -1,0 +1,16 @@
+{
+  "name": "kindergarten",
+  "version": "0.1.0",
+  "description": "An implementation of Naive-Bayes Classification that implements simple modular training of the classifier.",
+  "repository": {
+    "type": "git",
+    "url": "www.github.com/IronJew/kindergarten"
+  },
+  "keywords": [
+    "naive",
+    "bayes",
+    "classifier"
+  ],
+  "author": "Garnt",
+  "license": "MIT"
+}
