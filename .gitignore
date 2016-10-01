@@ -1,3 +1,11 @@
+# Test Data for the application
+testdata/
+
+# IntelliJ project files.
+.idea/
+
+# Boilerplate \/
+
 # Logs
 logs
 *.log

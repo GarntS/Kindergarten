@@ -6,11 +6,18 @@
     "type": "git",
     "url": "www.github.com/IronJew/kindergarten"
   },
+  "main": "./kindergarten.js",
   "keywords": [
     "naive",
     "bayes",
     "classifier"
   ],
   "author": "Garnt",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^4.16.2",
+    "natural": "^0.4.0",
+    "node-mutex": "^0.2.1",
+    "promise": "^7.1.1"
+  }
 }
