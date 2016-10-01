@@ -37,7 +37,7 @@ var train = function(documents) {
 		.then( function(unlock) {
 			classifier = new natural.BayesClassifier();
 			_.each(documents, function(doc) {
-				classifier.addDocument(doc);
+				classifier.addDocument(doc.text, doc.classification);
 			});
 
 			//Train
