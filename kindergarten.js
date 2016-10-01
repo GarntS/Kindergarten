@@ -18,6 +18,18 @@ var classifier = new natural.BayesClassifier();
 
 //
 
+//Does file exist?
+var exists = function(filename) {
+	try {
+		fs.accessSync(filename);
+		return true;
+	}
+	catch(e) {
+		log('Can\'t access file: '+ filename+ '\n');
+		return false;
+	}
+}
+
 //Formatted logger function
 var log = function(msg) {
 	console.log('[kinder] '+ JSON.stringify(msg));
@@ -51,8 +63,7 @@ var train = function(documents) {
 //Train the classifier with the contents of the JSON file at <filename>
 var train_from_JSON = function(filename) {
 	//Kill if file doesn't exist
-	if(!fs.accessSync(filename)) {
-		log('Can\'t access file: '+ filename);
+	if(!exists(filename)) {
 		return;
 	}
 
