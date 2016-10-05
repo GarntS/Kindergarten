@@ -84,11 +84,11 @@ var train = function(documents, name) {
 		.then( function(unlock) {
 			classifiers[name] = new natural.BayesClassifier();
 			_.each(documents, function(doc) {
-				classifier.addDocument(doc.text, doc.classification);
+				classifiers[name].addDocument(doc.text, doc.classification);
 			});
 
 			//Train
-			classifier.train();
+			classifiers[name].train();
 
 			//Unlock the mutex
 			unlock();
