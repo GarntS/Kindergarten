@@ -32,7 +32,7 @@ var exists = function(filename) {
 
 //Formatted logger function
 var log = function(msg) {
-	console.log('[kinder] '+ JSON.stringify(msg));
+	console.log('[kinder] '+ _.trim(JSON.stringify(msg), '\'"_-'));
 };
 
 //Create new classifier
@@ -82,7 +82,7 @@ var train = function(documents, name) {
 	mutex
 		.lock('classifier-'+ name)
 		.then( function(unlock) {
-			log('Training mutex locked');
+			//log('Training mutex locked');
 			classifiers[name] = new natural.BayesClassifier();
 			_.each(documents, function(doc) {
 				classifiers[name].addDocument(doc.text, doc.classification);
@@ -121,7 +121,7 @@ var classify = function(text, name, callback) {
 	mutex
 		.lock('classifier-'+ name)
 		.then( function(unlock) {
-			log('Classification mutex locked');
+			//log('Classification mutex locked');
 			var classification = classifiers[name].classify(text);
 
 			unlock();

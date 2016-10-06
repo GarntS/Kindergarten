@@ -1,10 +1,10 @@
 {
   "name": "kindergarten-classify",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "An implementation of Naive-Bayes Classification that implements simple modular training of the classifier.",
   "repository": {
     "type": "git",
-    "url": "www.github.com/IronJew/kindergarten"
+    "url": "http://www.github.com/IronJew/kindergarten"
   },
   "main": "./kindergarten.js",
   "keywords": [
