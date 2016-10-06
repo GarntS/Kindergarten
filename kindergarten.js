@@ -82,6 +82,7 @@ var train = function(documents, name) {
 	mutex
 		.lock('classifier-'+ name)
 		.then( function(unlock) {
+			log('Training mutex locked');
 			classifiers[name] = new natural.BayesClassifier();
 			_.each(documents, function(doc) {
 				classifiers[name].addDocument(doc.text, doc.classification);
@@ -109,29 +110,32 @@ var train_from_JSON = function(filename, name) {
 //
 
 //Actually make it work for a living. Returns the classification as a string.
-var classify = function(text, name) {
+var classify = function(text, name, callback) {
 	if(!_.has(classifiers, name)) {
 		log('Classifier '+ name+ 'does not exist');
-		return '';
+		callback('');
+		return;
 	}
 
 	//Lock the classifier's mutex
 	mutex
 		.lock('classifier-'+ name)
 		.then( function(unlock) {
+			log('Classification mutex locked');
 			var classification = classifiers[name].classify(text);
 
 			unlock();
 
-			return classification;
+			callback(classification);
 		});
 };
 
 //Make it work slightly harder for its living. Returns more detailed information.
-var classify_details = function(text) {
+var classify_details = function(text, name, callback) {
 	if(!_.has(classifiers, name)) {
 		log('Classifier '+ name+ 'does not exist');
-		return '';
+		callback('');
+		return;
 	}
 
 	//Lock the classifier's mutex
@@ -142,7 +146,7 @@ var classify_details = function(text) {
 
 			unlock();
 
-			return classification;
+			callback(classification);
 		});
 };
 
