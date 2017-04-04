@@ -1,6 +1,6 @@
 {
   "name": "kindergarten-classify",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "An implementation of Naive-Bayes Classification that implements simple modular training of the classifier.",
   "repository": {
     "type": "git",

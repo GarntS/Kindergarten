@@ -10,7 +10,7 @@ var natural = require('natural');
 var fs = require('fs');
 var _ = require('lodash');
 var promise = require('promise');
-var mutex = require('node-mutex')();
+var mutex;
 
 //
 
@@ -35,8 +35,23 @@ var log = function(msg) {
 	console.log('[kinder] '+ _.trim(JSON.stringify(msg), '\'"_-'));
 };
 
+// Pass in options for redis
+var init = function(redisOpts) {
+	if(redisOpts) {
+		mutex = require('node-mutex')(redisOpts);
+	}
+	else {
+		mutex = require('node-mutex')();
+    }
+}
+
 //Create new classifier
 var create_classifier = function(name) {
+    if(!mutex) {
+        log('You need to call kindergarten.init() first!');
+        return;
+    }
+
 	if(_.has(classifiers, name)) {
 		log('Cannot create preexisting classifier: '+ name);
 	}
@@ -47,6 +62,11 @@ var create_classifier = function(name) {
 
 //Delete existing classifier
 var delete_classifier = function(name) {
+	if(!mutex) {
+		log('You need to call kindergarten.init() first!');
+		return;
+	}
+
 	//Kill if no classifier
 	if(!_.has(classifiers, name)) {
 		log('Can\'t delete nonexistent classifier: '+ name);
@@ -67,6 +87,11 @@ var delete_classifier = function(name) {
 
 //Train the classifier with an array of documents
 var train = function(documents, name) {
+    if(!mutex) {
+        log('You need to call kindergarten.init() first!');
+        return;
+    }
+
 	//Kill if no documents
 	if(!documents.length > 0) {
 		log('No documents to train with.');
@@ -98,6 +123,11 @@ var train = function(documents, name) {
 
 //Train the classifier with the contents of the JSON file at <filename>
 var train_from_JSON = function(filename, name) {
+    if(!mutex) {
+        log('You need to call kindergarten.init() first!');
+        return;
+    }
+
 	//Kill if file doesn't exist
 	if(!exists(filename)) {
 		return;
@@ -111,6 +141,11 @@ var train_from_JSON = function(filename, name) {
 
 //Actually make it work for a living. Returns the classification as a string.
 var classify = function(text, name, callback) {
+    if(!mutex) {
+        log('You need to call kindergarten.init() first!');
+        return;
+    }
+
 	if(!_.has(classifiers, name)) {
 		log('Classifier '+ name+ 'does not exist');
 		callback('');
@@ -132,6 +167,11 @@ var classify = function(text, name, callback) {
 
 //Make it work slightly harder for its living. Returns more detailed information.
 var classify_details = function(text, name, callback) {
+    if(!mutex) {
+        log('You need to call kindergarten.init() first!');
+        return;
+    }
+
 	if(!_.has(classifiers, name)) {
 		log('Classifier '+ name+ 'does not exist');
 		callback('');
